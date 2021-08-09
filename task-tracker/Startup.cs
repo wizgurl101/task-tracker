@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+// import for data schema Models
+using Microsoft.EntityFrameworkCore;
+using task_tracker.Models;
 
 namespace task_tracker
 {
@@ -26,6 +29,12 @@ namespace task_tracker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // services such as DB context must be registered with the
+            // dependency injection container which provides the service
+            // to controllers
+
+            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TaskList"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
