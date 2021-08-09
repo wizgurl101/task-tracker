@@ -81,8 +81,16 @@ namespace task_tracker
         {
             _context.TaskItems.Add(taskItem);
             await _context.SaveChangesAsync();
+            
+            // CreatedAtAction method returns an HTTP 201 status code if successful in creating
+            // a new resource on the server.
+            // its add a Location header to the response
+            // It also references the GetTaskItem action to create the Location header's URI
+            // nameof keyword is used to avoid hard-coding the action name
 
-            return CreatedAtAction("GetTaskItem", new { id = taskItem.Id }, taskItem);
+            // nameof expression produces the name of a variable, type or member as the string
+            // string contant (in other words, it allows to map strings to named code elements
+            return CreatedAtAction(nameof(GetTaskItem), new { id = taskItem.Id }, taskItem);
         }
 
         // DELETE: api/TaskItems/5
